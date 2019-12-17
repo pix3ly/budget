@@ -82,6 +82,14 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/settings/account', 'SettingsController@getAccount')->name('account');
         Route::get('/settings/preferences', 'SettingsController@getPreferences')->name('preferences');
         Route::get('/settings/spaces', 'SettingsController@getSpaces')->name('spaces.index');
+
+        // Tags
+        Route::get('/settings/tags', 'SettingsController@getTags')->name('tags.index');
+        Route::get('/settings/tags/create', 'SettingsController@getTagsCreate')->name('tags.create');
+        Route::post('/settings/tags', 'SettingsController@postTagsStore');
+        Route::get('/settings/tags/{tag}/edit', 'SettingsController@getTagsEdit')->name('tags.edit');
+        Route::patch('/settings/tags/{tag}', 'SettingsController@patchTags');
+        Route::delete('/settings/tags/{tag}', 'SettingsController@deleteTags');
     });
 
     Route::get('/spaces/{id}', 'SpaceController');

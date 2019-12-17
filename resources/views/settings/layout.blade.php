@@ -11,15 +11,20 @@
                         <li><a href="/settings/account"><i class="fas fa-lock fa-sm"></i> {{ __('general.account') }}</a></li>
                         <li><a href="/settings/preferences"><i class="fas fa-sliders-h fa-sm"></i> {{ __('general.preferences') }}</a></li>
                         <li><a href="/settings/spaces"><i class="fas fa-rocket fa-sm"></i> {{ __('models.spaces') }}</a></li>
+                        <li><a href="/settings/tags"><i class="fas fa-tags fa-sm"></i> {{ __('models.tags') }}</a></li>
                     </ul>
                 </div>
             </div>
             <div class="row__column">
                 @yield('settings_title')
-                <form method="POST" action="/settings" enctype="multipart/form-data">
-                    {{ csrf_field() }}
+                @if (strpos(URL::current(), '/settings/tags') === false)
+                    <form method="POST" action="/settings" enctype="multipart/form-data">
+                        {{ csrf_field() }}
+                        @yield('settings_body')
+                    </form>
+                @else
                     @yield('settings_body')
-                </form>
+                @endif
             </div>
         </div>
     </div>
