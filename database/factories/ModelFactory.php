@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\APIKey;
 use App\Models\Budget;
 use App\Models\ConversionRate;
 use App\Models\Currency;
@@ -19,6 +20,12 @@ $factory->define(User::class, function (Generator $faker) {
         'email' => $faker->unique()->safeEmail,
         'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
         'remember_token' => Str::random(10)
+    ];
+});
+
+$factory->define(APIKey::class, function (Generator $faker) {
+    return [
+        'token' => Str::random(50)
     ];
 });
 

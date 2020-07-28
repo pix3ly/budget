@@ -24,12 +24,29 @@ class Spending extends Model
         'amount'
     ];
 
+    protected $visible = [
+        'id',
+        'type',
+        'description',
+        'happened_on',
+        'amount'
+    ];
+
+    protected $appends = [
+        'type'
+    ];
+
     protected $dispatchesEvents = [
         'created' => TransactionCreated::class,
         'deleted' => TransactionDeleted::class
     ];
 
     // Accessors
+    public function getTypeAttribute()
+    {
+        return 'spending';
+    }
+
     public function getFormattedAmountAttribute()
     {
         return Helper::formatNumber($this->amount / 100);
