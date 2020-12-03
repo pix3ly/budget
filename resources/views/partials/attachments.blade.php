@@ -20,7 +20,7 @@
                     <div class="mb-1" style="display: flex; align-items: center; justify-content: center; width: 200px; height: 200px; border-radius: 5px; background: #EEE;">
                         <i class="fas fa-file-pdf"></i>
                     </div>
-                    <a href="/attachments/{{ $attachment->id }}/download">Download</a>
+                    <a href="{{ route('attachments.download', ['attachment' => $attachment->id]) }}">Download</a>
                 @endif
             </div>
             <div class="ml-2">

@@ -22,7 +22,7 @@
                 </div>
                 <div class="box__section box__section--highlight row row--right">
                     <div class="row__column row__column--compact row__column--middle">
-                        <a href="/tags">{{ __('actions.cancel') }}</a>
+                        <a href="{{ route('tags.index') }}">{{ __('actions.cancel') }}</a>
                     </div>
                     <div class="row__column row__column--compact ml-2">
                         <button class="button">{{ __('actions.create') }}</button>

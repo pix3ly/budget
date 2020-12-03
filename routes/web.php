@@ -23,6 +23,7 @@ use App\Http\Controllers\TagController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\TranslationsController;
 use App\Http\Controllers\VerifyController;
+use Illuminate\Support\Facades\Route;
 
 Route::get('/', [IndexController::class, 'index'])->name('index');
 

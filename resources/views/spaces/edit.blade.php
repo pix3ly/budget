@@ -28,7 +28,7 @@
                 </div>
             </div>
             <div class="row row--right mt-2">
-                <a class="button button--secondary mr-2" href="/settings/spaces">{{ __('actions.cancel') }}</a>
+                <a class="button button--secondary mr-2" href="{{ route('settings.spaces.index') }}">{{ __('actions.cancel') }}</a>
                 <button class="button">{{ __('actions.save') }}</button>
             </div>
         </form>

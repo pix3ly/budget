@@ -9,7 +9,7 @@
                 <h2>{{ __('models.imports') }}</h2>
             </div>
             <div class="row__column row__column--compact row__column--middle">
-                <a href="/imports/create" class="button">{{ __('actions.create') }} {{ __('models.import') }}</a>
+                <a href="{{ route('imports.create') }}" class="button">{{ __('actions.create') }} {{ __('models.import') }}</a>
             </div>
         </div>
         <div class="box">
@@ -25,7 +25,7 @@
                         <div class="row__column">{{ $import->status < 2 ? $import->status + 1 . ' / 3' : 'Completed' }}</div>
                         <div class="row__column row__column--compact text-right" style="width: 100px;">
                             @if ($import->status < 2)
-                                <a href="/imports/{{ $import->id }}/{{ $import->status == 0 ? 'prepare' : 'complete' }}">Next</a>
+                                <a href="{{ route('imports.' . ($import->status == 0 ? 'prepare' : 'complete'), ['import' => $import->id]) }}">Next</a>
                             @endif
                         </div>
                         <div class="row__column row__column--compact text-right" style="width: 50px;">

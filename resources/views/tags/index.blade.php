@@ -9,7 +9,7 @@
                 <h2>{{ __('models.tags') }}</h2>
             </div>
             <div class="row__column row__column--compact row__column--middle">
-                <a href="/tags/create" class="button">{{ __('actions.create') }} {{ __('models.tag') }}</a>
+                <a href="{{ route('tags.create') }}" class="button">{{ __('actions.create') }} {{ __('models.tag') }}</a>
             </div>
         </div>
         <div class="box">
@@ -28,7 +28,7 @@
                         <div class="row__column row__column--middle">{{ $tag->spendings->count() }}</div>
                         <div class="row__column row__column--middle row row--right">
                             <div class="row__column row__column--compact">
-                                <a href="/tags/{{ $tag->id }}/edit">
+                                <a href="{{ route('tags.edit', ['tag' => $tag->id]) }}">
                                     <i class="fas fa-pencil"></i>
                                 </a>
                             </div>

@@ -9,7 +9,7 @@
                 <h2>{{ __('models.budgets') }}</h2>
             </div>
             <div class="row__column row__column--compact row__column--middle">
-                <a href="/budgets/create" class="button">{{ __('actions.create') }} {{ __('models.budget') }}</a>
+                <a href="{{ route('budgets.create') }}" class="button">{{ __('actions.create') }} {{ __('models.budget') }}</a>
             </div>
         </div>
         <div class="box mt-3">

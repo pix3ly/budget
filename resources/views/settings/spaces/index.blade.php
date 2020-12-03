@@ -6,7 +6,7 @@
 @endsection
 
 @section('settings_body')
-    <a class="button mb-2" href="/spaces/create">{{ __('actions.create') }}</a>
+    <a class="button mb-2" href="{{ route('spaces.create') }}">{{ __('actions.create') }}</a>
     <div class="box">
         <ul class="box__section">
             @foreach ($spaces as $space)
@@ -14,7 +14,7 @@
                     <div class="row__column">{{ $space->name }} &middot; {{ ucfirst($space->pivot->role) }}</div>
                     <div class="row__column row__column--compact">
                         @can('edit', $space)
-                            <a class="button button--secondary button--small" href="/spaces/{{ $space->id }}/edit">{{ __('pages.settings') }}</a>
+                            <a class="button button--secondary button--small" href="{{ route('spaces.edit', ['space' => $space->id]) }}">{{ __('pages.settings') }}</a>
                         @endcan
                     </div>
                 </li>

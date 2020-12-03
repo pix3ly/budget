@@ -38,7 +38,7 @@
                 </div>
                 <div class="box__section box__section--highlight row row--right">
                     <div class="row__column row__column--compact row__column--middle">
-                        <a href="/transactions">{{ __('actions.cancel') }}</a>
+                        <a href="{{ route('transactions.index') }}">{{ __('actions.cancel') }}</a>
                     </div>
                     <div class="row__column row__column--compact ml-2">
                         <button class="button">@lang('actions.save')</button>

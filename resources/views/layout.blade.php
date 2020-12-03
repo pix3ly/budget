@@ -47,37 +47,37 @@
                     <div class="wrapper">
                         <ul class="navigation__menu">
                             <li>
-                                <a href="/dashboard" {!! (Request::path() == 'dashboard') ? 'class="active"' : '' !!}><i class="fas fa-home fa-sm color-blue"></i> <span class="hidden ml-05">{{ __('general.dashboard') }}</span></a>
+                                <a href="{{ route('dashboard') }}" {!! (Request::path() == 'dashboard') ? 'class="active"' : '' !!}><i class="fas fa-home fa-sm color-blue"></i> <span class="hidden ml-05">{{ __('general.dashboard') }}</span></a>
                             </li>
                             <li>
-                                <a href="/transactions" {!! (Request::path() == 'transactions') ? 'class="active"' : '' !!}><i class="fas fa-exchange-alt fa-sm color-green"></i> <span class="hidden ml-05">{{ __('models.transactions') }}</span></a>
+                                <a href="{{ route('transactions.index') }}" {!! (Request::path() == 'transactions') ? 'class="active"' : '' !!}><i class="fas fa-exchange-alt fa-sm color-green"></i> <span class="hidden ml-05">{{ __('models.transactions') }}</span></a>
                             </li>
                             <li>
-                                <a href="/budgets" {!! (Request::path() == 'budgets') ? 'class="active"' : '' !!}><i class="fas fa-wallet fa-sm color-red"></i> <span class="hidden ml-05">{{ __('models.budgets') }}</span></a>
+                                <a href="{{ route('budgets.index') }}" {!! (Request::path() == 'budgets') ? 'class="active"' : '' !!}><i class="fas fa-wallet fa-sm color-red"></i> <span class="hidden ml-05">{{ __('models.budgets') }}</span></a>
                             </li>
                             <li>
-                                <a href="/tags" {!! (Request::path() == 'tags') ? 'class="active"' : '' !!}><i class="fas fa-tag fa-sm color-blue"></i> <span class="hidden ml-05">{{ __('models.tags') }}</span></a>
+                                <a href="{{ route('tags.index') }}" {!! (Request::path() == 'tags') ? 'class="active"' : '' !!}><i class="fas fa-tag fa-sm color-blue"></i> <span class="hidden ml-05">{{ __('models.tags') }}</span></a>
                             </li>
                             <li>
-                                <a href="/reports" {!! (Request::path() == 'reports') ? 'class="active"' : '' !!}><i class="fas fa-chart-line fa-sm color-green"></i> <span class="hidden ml-05">{{ __('pages.reports') }}</span></a>
+                                <a href="{{ route('reports.index') }}" {!! (Request::path() == 'reports') ? 'class="active"' : '' !!}><i class="fas fa-chart-line fa-sm color-green"></i> <span class="hidden ml-05">{{ __('pages.reports') }}</span></a>
                             </li>
                         </ul>
                         <ul class="navigation__menu">
                             <li>
                                 <button-dropdown>
-                                    <a slot="button" href="/transactions/create">{{ __('actions.create') }} {{ __('models.transaction') }}</a>
+                                    <a slot="button" href="{{ route('transactions.create') }}">{{ __('actions.create') }} {{ __('models.transaction') }}</a>
                                     <ul slot="menu" v-cloak>
                                         <li>
-                                            <a href="/tags/create">{{ __('actions.create') }} {{ __('models.tag') }}</a>
+                                            <a href="{{ route('tags.create') }}">{{ __('actions.create') }} {{ __('models.tag') }}</a>
                                         </li>
                                         <li>
-                                            <a href="/imports/create">{{ __('actions.create') }} {{ __('models.import') }}</a>
+                                            <a href="{{ route('imports.create') }}">{{ __('actions.create') }} {{ __('models.import') }}</a>
                                         </li>
                                     </ul>
                                 </button-dropdown>
                             </li>
                             <li>
-                                <a href="/activities">
+                                <a href="{{ route('activities.index') }}">
                                     <i class="fas fa-clock"></i>
                                 </a>
                             </li>
@@ -90,7 +90,7 @@
                                         <ul slot="menu" v-cloak>
                                             @foreach (Auth::user()->spaces as $space)
                                                 <li>
-                                                    <a href="/spaces/{{ $space->id }}">{{ $space->name }}</a>
+                                                    <a href="{{ route('spaces.show', ['space' => $space->id]) }}">{{ $space->name }}</a>
                                                 </li>
                                             @endforeach
                                         </ul>
@@ -104,13 +104,13 @@
                                     </span>
                                     <ul slot="menu" v-cloak>
                                         <li>
-                                            <a href="/imports">{{ __('models.imports') }}</a>
+                                            <a href="{{ route('imports.index') }}">{{ __('models.imports') }}</a>
                                         </li>
                                         <li>
-                                            <a href="/settings">{{ __('pages.settings') }}</a>
+                                            <a href="{{ route('settings.index') }}">{{ __('pages.settings') }}</a>
                                         </li>
                                         <li>
-                                            <a href="/logout">{{ __('pages.log_out') }}</a>
+                                            <a href="{{ route('logout') }}">{{ __('pages.log_out') }}</a>
                                         </li>
                                     </ul>
                                 </dropdown>
@@ -147,7 +147,7 @@
             @if (auth()->check())
                 <div class="text-center mb-3">
                     @if ($suggestionBoxEnabled)
-                        <a class="fs-sm" href="/ideas/create">{{ __('general.got_a_suggestion') }}?</a> &middot; {{ $versionNumber }}
+                        <a class="fs-sm" href="{{ route('ideas.create') }}">{{ __('general.got_a_suggestion') }}?</a> &middot; {{ $versionNumber }}
                     @else
                         {{ $versionNumber }}
                     @endif

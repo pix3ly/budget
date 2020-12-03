@@ -9,7 +9,7 @@
                 <h2>{{ __('models.recurrings') }}</h2>
             </div>
             <div class="row__column row__column--compact row__column--middle">
-                <a href="/recurrings/create" class="button">{{ __('actions.create') }} {{ __('models.recurring') }}</a>
+                <a href="{{ route('recurrings.create') }}" class="button">{{ __('actions.create') }} {{ __('models.recurring') }}</a>
             </div>
         </div>
         <div class="box mt-3">
@@ -18,7 +18,7 @@
                     <div class="box__section row">
                         <div class="row__column">
                             <div class="color-dark">
-                                <a href="/recurrings/{{ $recurring->id }}">{{ $recurring->description }}</a>
+                                <a href="{{ route('recurrings.show', ['recurring' => $recurring->id]) }}">{{ $recurring->description }}</a>
                             </div>
                             <div class="row mt-1">
                                 <div class="row__column row__column--compact" style="font-size: 14px; font-weight: 600;">{!! $currency !!} {{ \App\Helper::formatNumber($recurring->amount / 100) }}</div>

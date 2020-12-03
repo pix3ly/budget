@@ -47,13 +47,14 @@ class BudgetController extends Controller
         }
 
         if ($this->budgetRepository->doesExist(session('space_id'), $request->tag_id)) {
-            return redirect('/budgets/create')
+            return redirect()
+                ->route('budgets.create')
                 ->with('message', 'A budget like this already exists');
         }
 
         $amount = Helper::rawNumberToInteger($request->amount);
         $this->budgetRepository->create(session('space_id'), $request->tag_id, $request->period, $amount);
 
-        return redirect('/budgets');
+        return redirect()->route('budgets.index');
     }
 }

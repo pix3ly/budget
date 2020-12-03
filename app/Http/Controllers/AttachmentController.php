@@ -33,7 +33,7 @@ class AttachmentController extends Controller
 
         $this->attachmentRepository->create($transactionType, $transactionId, $filePath);
 
-        return redirect('/' . $transactionType . 's/' . $transactionId);
+        return redirect()->route($transactionType . 's.show', [$transactionType => $transactionId]);
     }
 
     public function download(Request $request, Attachment $attachment)
@@ -65,6 +65,6 @@ class AttachmentController extends Controller
 
         $this->attachmentRepository->delete($id);
 
-        return redirect('/' . $transactionType . 's/' . $transactionId);
+        return redirect()->route($transactionType . 's.show', [$transactionType => $transactionId]);
     }
 }
