@@ -2,23 +2,36 @@
 
 @section('body')
     <div class="wrapper my-3">
-        <div class="row row--responsive">
-            <div class="row__column mr-3" style="max-width: 300px;">
-                <div class="box">
-                    <div class="box__section box__section--header">{{ __('pages.settings') }}</div>
-                    <ul class="box__section">
-                        <li><a href="/settings/profile"><i class="fas fa-user fa-sm"></i> {{ __('general.profile') }}</a></li>
-                        <li><a href="/settings/account"><i class="fas fa-lock fa-sm"></i> {{ __('general.account') }}</a></li>
-                        <li><a href="/settings/preferences"><i class="fas fa-sliders-h fa-sm"></i> {{ __('general.preferences') }}</a></li>
-                        <li><a href="/settings/dashboard"><i class="fas fa-home fa-sm"></i> {{ __('general.dashboard') }}</a></li>
-                        @if ($arePlansEnabled)
-                            <li><a href="/settings/billing"><i class="fas fa-wallet fa-sm"></i> {{ __('general.billing') }}</a></li>
-                        @endif
-                        <li><a href="/settings/spaces"><i class="fas fa-rocket fa-sm"></i> {{ __('models.spaces') }}</a></li>
-                    </ul>
-                </div>
+        <div class="tw-flex tw-space-x-10">
+            <div class="tw-flex-1 tw-space-y-2" style="max-width: 260px;">
+                <x-sidebar-tab
+                    icon="fas fa-user"
+                    text="{{ __('general.profile') }}"
+                    path="/settings/profile" />
+                <x-sidebar-tab
+                    icon="fas fa-lock"
+                    text="{{ __('general.account') }}"
+                    path="/settings/account" />
+                <x-sidebar-tab
+                    icon="fas fa-sliders-h"
+                    text="{{ __('general.preferences') }}"
+                    path="/settings/preferences" />
+                <x-sidebar-tab
+                    icon="fas fa-home"
+                    text="{{ __('general.dashboard') }}"
+                    path="/settings/dashboard" />
+                @if ($arePlansEnabled)
+                    <x-sidebar-tab
+                        icon="fas fa-wallet"
+                        text="{{ __('general.billing') }}"
+                        path="/settings/billings" />
+                @endif
+                <x-sidebar-tab
+                    icon="fas fa-rocket"
+                    text="{{ __('models.spaces') }}"
+                    path="/settings/spaces" />
             </div>
-            <div class="row__column">
+            <div class="tw-flex-auto">
                 @yield('settings_title')
                 <form method="POST" action="/settings" enctype="multipart/form-data">
                     {{ csrf_field() }}
