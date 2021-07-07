@@ -18,7 +18,8 @@
         "nesbot/carbon": "^2.32",
         "stripe/stripe-php": "^7.44",
         "symfony/dom-crawler": "^5.1",
-        "symfony/process": "^5.0"
+        "symfony/process": "^5.0",
+        "ext-calendar": "*"
     },
     "require-dev": {
         "filp/whoops": "~2.0",
