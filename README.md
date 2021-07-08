@@ -53,9 +53,17 @@ php artisan budget:update
 
 ## Docker
 
-You can run Budget using Docker. Spinning it up (`docker-compose up`) will create 3 containers–for MySQL, PHP and NGINX.
+You can run Budget using Docker Compose. Docker Compose starts 2 containers - one for the database and the other for the application itself.
 
-*Disclaimer–currently the Docker setup is missing cronjobs and the queue worker.*
+1. Clone the repository
+2. Copy the `.env.example` to `.env`, make sure to review/replace any other value as you wish
+3. Generate an `API_KEY` (`docker-compose run --entrypoint php php artisan key:generate --no-ansi --show`) and put that into your `.env`
+   The `APP_KEY` should be rotated carefully as session cookies are encrypted with this value
+3. Make sure you have the most up-to-date images (`docker-compose pull`)
+4. Run the stack (`docker-compose up`)
+5. Budget should be available at [http://localhost:8080](http://localhost:8080) shortly
+
+*Disclaimer–currently the Docker setup is missing the queue worker.*
 
 ## Contact
 
