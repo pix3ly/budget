@@ -53,9 +53,21 @@ php artisan budget:update
 
 ## Docker
 
-You can run Budget using Docker. Spinning it up (`docker-compose up`) will create 3 containers–for MySQL, PHP and NGINX.
+You can get set-up with Budget using Docker.
 
-*Disclaimer–currently the Docker setup is missing cronjobs and the queue worker.*
+### Do it yourself
+
+If you just want an environment that takes care of the webserver, PHP and database, you should use this option. It will spin up the services required to run Budget, but not do any of the setting up for the application (activities such as installing Composer dependencies or generating an application key).
+
+`docker-compose up -d`
+
+### Automatic
+
+If you want everything to be installed and set-up from start to finish, you should use this option. By providing the `BUDGET_SETUP` environment variable, a script will run that does everything you need–whether it's installing Composer dependencies or compiling front-end assets.
+
+It may take a few minutes before the process is completed and you're able to use Budget.
+
+`BUDGET_SETUP=1 docker-compose up -d`
 
 ## Contact
 

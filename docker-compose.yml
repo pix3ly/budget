@@ -2,37 +2,25 @@ version: '3'
 
 volumes:
   database2: {}
-  built_app: {}
 
 services:
-  # Named "database2" because "database" conflicts with directory inside project
-  database2:
-    image: mysql:8
+  database:
+    image: mysql:5.7
     environment:
-      MYSQL_DATABASE: budget
-      MYSQL_USER: budget
-      MYSQL_PASSWORD: test
-      MYSQL_RANDOM_ROOT_PASSWORD: 'true'
+      MYSQL_DATABASE: 'budget'
+      MYSQL_USER: 'budget'
+      MYSQL_PASSWORD: 'test'
+      MYSQL_RANDOM_ROOT_PASSWORD: 1
+    ports:
+      - 3306:3306
     command: --default-authentication-plugin=mysql_native_password
-    volumes:
-      - database2:/var/lib/mysql
 
-  php:
+  app:
     build: ./
     environment:
-      DB_HOST: database2
-      DB_DATABASE: budget
-      DB_USERNAME: budget
-      DB_PASSWORD: test
+      - BUDGET_SETUP
     volumes:
-      - built_app:/usr/share/nginx/budget
-
-  nginx:
-    image: nginx:latest
-    depends_on:
-      - php # To ensure that "built_app" volume gets filled by "php" service
-    volumes:
-      - built_app:/usr/share/nginx/budget
-      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+      - .:/var/www
     ports:
       - 8080:80
+    command: ./docker_boot.sh

@@ -1,5 +1,17 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
-./wait-for-it.sh database2:3306 -- php artisan migrate
+chown -R www-data:www-data /var/www/storage
 
-php-fpm
+if [ ! -z $BUDGET_SETUP ]; then
+  composer install
+  cp .env.docker .env
+  php artisan key:generate
+  php artisan storage:link
+
+  yarn install
+  yarn production
+
+  php artisan migrate --force
+fi
+
+supervisord -n -c supervisord.conf

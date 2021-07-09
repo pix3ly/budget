@@ -1,31 +1,33 @@
 FROM php:7.2-fpm
 
-# Install system packages (Git, packages for archives, Node.js)
-RUN apt-get update \
-    && apt-get install -y git libzip-dev zlib1g-dev unzip \
-    && curl -sL https://deb.nodesource.com/setup_14.x | bash - && apt-get install -y nodejs \
-    && rm -rf /var/lib/apt/lists/*
+# Grab magical script that brings back balance throughout earth
+COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr/local/bin/
+
+# Install NGINX and other packages
+RUN apt-get update && \
+    apt-get install -y \
+      nginx \
+      cron \
+      supervisor
+
+# Configure NGINX
+COPY nginx.conf /etc/nginx/sites-enabled/default
+
+# Configure cron
+COPY cron.conf /etc/cron.d/budget
+
+# Configure Supervisor
+COPY supervisord.conf /etc/supervisor/conf.d/budget.conf
 
 # Install PHP extensions
-RUN docker-php-ext-install pdo_mysql && docker-php-ext-install zip && docker-php-ext-install calendar
-
-# Ensure commands are running successfully before continuing
-SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+RUN install-php-extensions pdo_mysql zip calendar gd
 
 # Install Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-# Install Yarn
-RUN npm install -g yarn
+# Install Node.js and Yarn
+RUN curl -sL https://deb.nodesource.com/setup_15.x | bash - && \
+    apt-get install -y nodejs && \
+    npm install -g yarn
 
-WORKDIR /usr/share/nginx/budget
-COPY . .
-
-# Required before we're able to run any "php artisan" commands
-RUN composer install
-
-RUN php artisan budget:install
-
-RUN chown -R www-data:www-data /usr/share/nginx/budget
-
-CMD ./docker_boot.sh
+WORKDIR /var/www
