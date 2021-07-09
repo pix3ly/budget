@@ -6,16 +6,19 @@ use App\Helper;
 use App\Models\Import;
 use App\Models\Tag;
 use App\Repositories\SpendingRepository;
+use App\Repositories\EarningRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
 class ImportController extends Controller
 {
     private $spendingRepository;
+    private $earningRepository;
 
-    public function __construct(SpendingRepository $spendingRepository)
+    public function __construct(SpendingRepository $spendingRepository, EarningRepository $earningRepository)
     {
         $this->spendingRepository = $spendingRepository;
+        $this->earningRepository = $earningRepository;
     }
 
     public function index()
@@ -136,7 +139,7 @@ class ImportController extends Controller
                     'tag_id' => 'nullable|exists:tags,id', // TODO CHECK IF TAG BELONGS TO USER
                     'happened_on' => 'date|date_format:' . $date_format,
                     'description' => 'max:255',
-                    'amount' => 'regex:/^\d*([\,\.]\d{2})?$/'
+                    'amount' => 'regex:/^(\-)?\d*([\,\.]\d{2})?$/'
                 ]);
 
                 if ($validator->fails()) {
@@ -154,19 +157,36 @@ class ImportController extends Controller
         }
 
         foreach ($request->input('rows') as $row) {
-            if (isset($row['import'])) {
+            if (isset($row['import']) && isset($row['amount'])) {
                 // TODO CHECK HOW THIS WORKS WITH 1k+ AMOUNTS
                 $amount = str_replace(',', '.', $row['amount']);
 
-                $this->spendingRepository->create(
+                //correct amount to be in cents
+                if(strpos($amount, '.')!==false){
+                  $amount *= 100;
+                }
+
+                if($amount<0){
+                  $amount*=-1;
+                  $this->spendingRepository->create(
+                      session('space_id'),
+                      $import->id,
+                      null,
+                      $row['tag_id'],
+                      $row['happened_on'],
+                      $row['description'],
+                      $amount
+                  );
+                } else {
+                  $this->earningRepository->create(
                     session('space_id'),
-                    $import->id,
                     null,
-                    $row['tag_id'],
                     $row['happened_on'],
                     $row['description'],
                     $amount
-                );
+                  );
+                }
+
             }
         }
 
